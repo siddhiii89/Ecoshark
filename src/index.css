@@ -1,0 +1,14 @@
+body { font-family: Arial, Helvetica, sans-serif; margin: 0; padding: 0; background:#f7faf7; }
+.container { max-width: 900px; margin: 30px auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.header { display:flex; align-items:center; gap:12px; }
+.logo { width:48px; height:48px; border-radius:8px; background-color:#e6f4ea; display:flex; align-items:center; justify-content:center; font-weight:bold; color:#2a7a40; }
+h1 { margin:0; }
+.buttons { display:flex; gap:8px; margin-top:12px; }
+.tip-cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; margin-top:12px; }
+.card { padding:12px; border-radius:6px; border:1px solid #eee; background:#fafafa; }
+.form-row { margin-top:8px; display:flex; flex-direction:column; gap:6px; }
+input[type="file"] { padding:6px; }
+.preview { max-width: 100%; height: auto; border: 1px solid #ddd; margin-top:8px; border-radius:6px; }
+.small-muted { font-size:13px; color:#666; }
+.primary-btn { background:#2a7a40; color:#fff; padding:8px 12px; border:none; border-radius:4px; cursor:pointer; }
+.secondary-btn { background:#f1f1f1; color:#333; padding:8px 12px; border:none; border-radius:4px; cursor:pointer; }
