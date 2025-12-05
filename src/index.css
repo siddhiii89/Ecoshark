@@ -12,3 +12,33 @@ input[type="file"] { padding:6px; }
 .small-muted { font-size:13px; color:#666; }
 .primary-btn { background:#2a7a40; color:#fff; padding:8px 12px; border:none; border-radius:4px; cursor:pointer; }
 .secondary-btn { background:#f1f1f1; color:#333; padding:8px 12px; border:none; border-radius:4px; cursor:pointer; }
+
+/* Soft reusable animations for React components (used with Tailwind classes) */
+@keyframes soft-fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.soft-fade-in-up {
+  animation: soft-fade-in-up 0.6s ease-out both;
+}
+
+.soft-fade-in-up-slow {
+  animation: soft-fade-in-up 0.9s ease-out both;
+}
+
+.soft-scale-hover {
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.soft-scale-hover:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 10px 25px rgba(15, 118, 110, 0.12);
+}
+
