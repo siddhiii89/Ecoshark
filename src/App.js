@@ -9,6 +9,7 @@ import MyListings from './pages/MyListings';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ResetPassword from './pages/ResetPassword';
+import Impact from './pages/Impact';
 import ProtectedRoute from './routes/ProtectedRoute';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
@@ -21,6 +22,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/listings" element={<Listings />} />
           <Route path="/listings/:id" element={<ItemDetail />} />
+          <Route path="/impact" element={<ProtectedRoute><Impact /></ProtectedRoute>} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/reset-password" element={<ResetPassword />} />

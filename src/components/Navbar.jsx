@@ -24,8 +24,9 @@ export default function Navbar() {
     { to: "/", icon: <FiHome className="mr-2" />, text: "Home" },
     { to: "/listings", icon: <FiGrid className="mr-2" />, text: "Browse Listings" },
     ...(user ? [
+      { to: "/impact", icon: <FiGrid className="mr-2" />, text: "Impact" },
       { to: "/share", icon: <FiPlusCircle className="mr-2" />, text: "Donate an Item" },
-      { to: "/my-listings", icon: <FiUser className="mr-2" />, text: "My Listings" }
+      { to: "/my-listings", icon: <FiUser className="mr-2" />, text: "My Listings" },
     ] : [])
   ];
 
