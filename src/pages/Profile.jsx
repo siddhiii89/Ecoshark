@@ -3,6 +3,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { FiUser, FiMail, FiGift, FiCalendar, FiActivity, FiTrendingUp, FiClock } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { supabase } from "../supabaseClient";
+import { fetchMyNgoRequest } from "../services/ngoService";
 
 export default function Profile() {
   const { user } = useAuth();
@@ -23,6 +24,7 @@ export default function Profile() {
   // Listings state
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [ngoRequest, setNgoRequest] = useState(null);
 
   useEffect(() => {
     if (!user) return;
@@ -48,6 +50,15 @@ export default function Profile() {
     };
     fetchData();
     // eslint-disable-next-line
+  }, [user]);
+
+  useEffect(() => {
+    const loadNgo = async () => {
+      if (!user) return;
+      const req = await fetchMyNgoRequest(user.id);
+      setNgoRequest(req);
+    };
+    loadNgo();
   }, [user]);
 
   const remove = async (id) => {
@@ -93,6 +104,22 @@ export default function Profile() {
                 <FiCalendar className="h-4 w-4 text-emerald-500" />
                 <span>Member since {joined}</span>
               </div>
+              {ngoRequest && (
+                <div className="mt-2 text-sm text-emerald-800 bg-emerald-50 border border-emerald-100 rounded-xl p-3">
+                  <div className="font-semibold">
+                    NGO mode: {ngoRequest.ngo_enabled ? "Enabled" : "Pending verification"}
+                  </div>
+                  {ngoRequest.ngo_enabled ? (
+                    <p className="mt-1 text-xs text-emerald-900">
+                      As an NGO account, a small platform fee of <span className="font-semibold">₹10–₹20 per item</span> will be charged for each exchange to help us maintain EcoShare.
+                    </p>
+                  ) : (
+                    <p className="mt-1 text-xs text-emerald-900">
+                      Your NGO documentation is under review by an admin. Once approved, NGO mode will be enabled and a small platform fee of ₹10–₹20 per item will apply.
+                    </p>
+                  )}
+                </div>
+              )}
             </div>
           )}
         </div>
