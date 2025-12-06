@@ -12,6 +12,22 @@ export default function DonateForm({ defaultTitle, defaultDescription, defaultCa
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!title.trim()) {
+      alert("Please add a title for your item.");
+      return;
+    }
+    if (!description || description.trim().length < 30) {
+      alert("Please enter at least 30 characters describing the item and its condition.");
+      return;
+    }
+    if (!category.trim()) {
+      alert("Please specify a category (e.g. Clothes, Electronics).");
+      return;
+    }
+    if (zip && !/^\d{6}$/.test(zip.trim())) {
+      alert("Please enter a valid 6-digit PIN code.");
+      return;
+    }
     onSubmit({
       title,
       description,

@@ -51,7 +51,7 @@ export default function ImageUploader({ userId, userEmail }) {
   }, [file]);
 
   const onFileChange = (e) => {
-    setFile(e.target.files[0]);
+    setFile(e.target.files[0] || null);
     setPrediction(null);
   };
 
@@ -93,14 +93,28 @@ export default function ImageUploader({ userId, userEmail }) {
   const TIPS = {
     Shoes: {
       reuse: [
-        "Clean and donate shoes in good condition to shelters or drives.",
-        "Repurpose old shoes as planters for your garden.",
-        "Use worn-out shoes for creative art projects."
+        "Clean and use old shoes as indoor slippers for home use.",
+        "Use shoelaces as plant ties or DIY craft strings.",
+        "Repurpose shoes as quirky indoor plant pots.",
+        "Use old sports shoes as garden or yard work shoes.",
+        "Turn canvas shoes into decorative storage containers.",
+        "Use baby shoes as keepsake memory displays.",
+        "Convert flat shoes into pin cushions for sewing kits.",
+        "Use old shoes as door-stoppers by adding weight inside.",
+        "Turn shoe soles into grip mats for toolboxes.",
+        "Use shoe bodies as quirky pen or paintbrush holders."
       ],
       recycle: [
-        "Check if your local recycling center accepts shoes for material recovery.",
-        "Some brands accept shoes for recycling—ask at the store.",
-        "Remove laces and non-recyclable parts before recycling."
+        "Cut rubber soles and use them as anti-slip pads for furniture legs.",
+        "Cut the inner foam layers to use as cushioning material.",
+        "Turn shoe insoles into kneeling pads for gardening.",
+        "Cut fabric sides into small patches for craft or repair stitching.",
+        "Turn soles into DIY coasters by smoothing edges.",
+        "Use stripped shoe fabric as material for making keychains.",
+        "Shred leather shoes to make small leather strips for crafts.",
+        "Use rubber soles as a base for DIY door stoppers.",
+        "Cut shoe tongues to create mini storage pockets.",
+        "Use broken shoe parts in mosaics or decorative art projects."
       ],
       donate: [
         "Bundle shoes in pairs and mention size/condition in your listing.",
@@ -110,14 +124,28 @@ export default function ImageUploader({ userId, userEmail }) {
     },
     Clothes: {
       reuse: [
-        "Repair small tears or missing buttons before reuse.",
-        "Turn old t-shirts into cleaning rags.",
-        "Use fabric scraps for DIY crafts."
+        "Convert T-shirts into no-sew tote bags.",
+        "Use old shirts as decorative pillow covers.",
+        "Turn jeans pockets into wall or desk organizers.",
+        "Use denim sleeves as plant pot covers.",
+        "Make hair ties or headbands from stretchy fabric.",
+        "Use cotton clothes as reusable kitchen towels.",
+        "Turn old T-shirts into braided rugs.",
+        "Cut fabric to make gift-wrapping cloths (furoshiki).",
+        "Use fabric to create reusable handkerchiefs.",
+        "Convert kids' clothes into memory quilts."
       ],
       recycle: [
-        "Textile recycling centers accept damaged clothing for insulation or rags.",
-        "Check for clothing drop-off bins in your area.",
-        "Remove zippers and buttons before recycling."
+        "Cut clothes into cleaning rags for home use.",
+        "Shred clothes to use as cushion or pillow stuffing.",
+        "Use fabric strips to make braided baskets.",
+        "Turn sleeves into drawstring bags.",
+        "Cut jeans into sturdy patches for repairs.",
+        "Shred cloth to use as compost carbon material (only natural fabrics).",
+        "Turn thick fabric into pot holders.",
+        "Create fabric rope by twisting long strips.",
+        "Turn old scarves into lampshade covers.",
+        "Use pieces of cloth for quilting or patchwork crafts."
       ],
       donate: [
         "Donate to local charities, shelters, or community groups.",
@@ -127,14 +155,28 @@ export default function ImageUploader({ userId, userEmail }) {
     },
     Plastic: {
       reuse: [
-        "Reuse sturdy containers for storage or organizing.",
-        "Use bottles for DIY watering cans.",
-        "Make bird feeders from old plastic bottles."
+        "Use bottles as water sprinklers by poking tiny holes in the cap.",
+        "Turn plastic containers into storage for grains, screws, or beads.",
+        "Use plastic jars as fridge organizers.",
+        "Cut bottles to create snack organizers.",
+        "Mark measurement levels on bottles to use as measuring cups.",
+        "Use strong plastic tubs as plant watering trays.",
+        "Transform jars into spice containers with labels.",
+        "Use thin plastic sheets as drawer liners.",
+        "Convert big plastic boxes into meal-prep containers.",
+        "Use bottle caps as counters for games or educational tools."
       ],
       recycle: [
-        "Rinse and check local rules for accepted plastic types.",
-        "Remove caps and flatten bottles to save space.",
-        "Recycle clean plastic at curbside or drop-off locations."
+        "Cut bottles to make herb or succulent planters.",
+        "Create vertical gardens using stacked or hanging bottles.",
+        "Slice bottle sides into strips to create a DIY broom.",
+        "Make bird feeders using spoons or sticks.",
+        "Turn containers into desk organizers.",
+        "Craft wall art using spoons and caps.",
+        "Make drip-irrigation systems using punctured bottles.",
+        "Convert tubs into mini compost bins.",
+        "Shred clean plastic to use as lightweight filler.",
+        "Use bottle bottoms as decorated candle holders."
       ],
       donate: [
         "Donate clean, useful plastic items to community centers.",
@@ -144,14 +186,28 @@ export default function ImageUploader({ userId, userEmail }) {
     },
     Paper: {
       reuse: [
-        "Use paper for notes, crafts, or wrapping gifts.",
-        "Shred old paper for pet bedding.",
-        "Reuse envelopes for mailing or storage."
+        "Use blank sides of old sheets for notes.",
+        "Create bookmarks from colored paper strips.",
+        "Fold paper for origami decorations.",
+        "Use paper to wrap fragile objects.",
+        "Make simple envelopes from reused sheets.",
+        "Use paper as temporary table mats.",
+        "Create paper labels for jars and boxes.",
+        "Use paper as scratch paper for doodling or calculations.",
+        "Make kids’ craft cutouts from old sheets.",
+        "Use colorful paper pieces to make collage art."
       ],
       recycle: [
-        "Keep paper dry and free of food stains before recycling.",
-        "Recycle newspapers, magazines, and office paper curbside.",
-        "Remove staples and clips before recycling."
+        "Tear, soak, and blend paper to make handmade recycled sheets.",
+        "Use paper-mache to craft bowls, masks, or shapes.",
+        "Shred paper for compost as carbon material.",
+        "Use shredded paper for packaging filler.",
+        "Make seed paper by mixing pulp with plant seeds.",
+        "Create paper clay by blending pulp with glue.",
+        "Make recycled notebook covers using layered paper.",
+        "Turn paper tubes into cable organizers.",
+        "Roll paper tightly to make DIY coasters.",
+        "Make paper beads for jewelry or decoration."
       ],
       donate: [
         "Offer clean paper to schools for art projects.",
@@ -161,14 +217,28 @@ export default function ImageUploader({ userId, userEmail }) {
     },
     Cardboard: {
       reuse: [
-        "Reuse boxes for storage or shipping.",
-        "Use cardboard for DIY organizers or crafts.",
-        "Lay cardboard in your garden to suppress weeds."
+        "Use cardboard boxes for general household storage.",
+        "Create kids’ playhouses or mini models.",
+        "Use flat cardboard as drawer liners.",
+        "Turn cardboard into laptop stands.",
+        "Make DIY picture frames.",
+        "Use cardboard as a paint shield for wall painting.",
+        "Create DIY coasters by cutting sturdy pieces.",
+        "Use cardboard sheets for school project bases.",
+        "Convert boxes into toy organizers.",
+        "Make a simple charging dock from cardboard."
       ],
       recycle: [
-        "Flatten boxes before recycling to save space.",
-        "Keep cardboard dry and free of food residue.",
-        "Recycle at curbside or drop-off locations."
+        "Cut cardboard into drawer organizers.",
+        "Reinforce boxes to make storage baskets.",
+        "Create a pet house using large boxes.",
+        "Make compostable seed starter pots.",
+        "Use cardboard strips to weave baskets.",
+        "Turn cardboard into a scratchpad for cats.",
+        "Shred cardboard for compost (brown material).",
+        "Use cardboard triangles to strengthen shelves.",
+        "Make a DIY pinboard covered with cloth.",
+        "Cut and paint cardboard to make wall décor pieces."
       ],
       donate: [
         "Offer clean boxes to local shops or movers.",
@@ -178,14 +248,28 @@ export default function ImageUploader({ userId, userEmail }) {
     },
     "Brown-glass": {
       reuse: [
-        "Use jars and bottles for storage or vases.",
-        "Make candle holders from glass jars.",
-        "Create DIY lanterns for your home."
+        "Use brown bottles to store oils or vinegar.",
+        "Use them as rustic table vases.",
+        "Use bottles as minimalist home décor.",
+        "Use them as elegant water bottles for dinner settings.",
+        "Fill bottles with colored water for decoration.",
+        "Use brown jars for storing dry foods.",
+        "Use bottles as stick diffusers for fragrances.",
+        "Use bottles as photo-holders by inserting wires.",
+        "Use jars for storing DIY cleaners.",
+        "Use bottles as rolling pins for baking in emergencies."
       ],
       recycle: [
-        "Remove caps and rinse glass before recycling.",
-        "Sort glass by color if required locally.",
-        "Recycle at bottle banks or curbside."
+        "Insert fairy lights inside bottles for DIY lamps.",
+        "Cut bottles to make candle holders.",
+        "Use bottles placed upside-down as garden borders.",
+        "Turn glass pieces into mosaic art.",
+        "Use bottles as weights for pressing plants or papers.",
+        "Fill bottles with sand to make doorstoppers.",
+        "Make bottle wind chimes by cutting sections.",
+        "Use cut bottles as small planters.",
+        "Paint bottles to create home décor pieces.",
+        "Use smoothened glass pieces for jewelry crafts."
       ],
       donate: [
         "Donate decorative glass to thrift stores.",
@@ -195,14 +279,28 @@ export default function ImageUploader({ userId, userEmail }) {
     },
     "Green-glass": {
       reuse: [
-        "Use for crafts or garden décor.",
-        "Repurpose bottles as flower vases.",
-        "Store dry goods in clean glass jars."
+        "Use bottles as tall vases for flowers.",
+        "Use green bottles as table centerpieces.",
+        "Store infused oils or beverages.",
+        "Use bottles for DIY fragrance diffusers.",
+        "Fill with sand or shells for décor.",
+        "Use jars for pantry storage.",
+        "Use bottles as watering tools for plants.",
+        "Turn bottles into stylish candle stands.",
+        "Use bottles as rolling rods for clay projects.",
+        "Use jars as paintbrush cleaning jars."
       ],
       recycle: [
-        "Rinse and recycle at glass collection points.",
-        "Remove labels before recycling if possible.",
-        "Sort by color if your area requires."
+        "Cut bottles into drinking glasses.",
+        "Use bottles as garden edging.",
+        "Make wind chimes using bottle sections.",
+        "Turn bottles into self-watering plant systems.",
+        "Use cut glass for stained-glass art.",
+        "Create hanging lamps using bottle tops.",
+        "Make candle covers by cutting bottles evenly.",
+        "Turn bottle necks into funnels.",
+        "Create mini terrariums in cut bottles.",
+        "Use polished glass shards in stepping-stone art."
       ],
       donate: [
         "Donate colored glass bottles to artists.",
@@ -212,14 +310,28 @@ export default function ImageUploader({ userId, userEmail }) {
     },
     "White-glass": {
       reuse: [
-        "Use clear jars for food storage.",
-        "Make snow globes from glass jars.",
-        "Create terrariums using wide-mouth jars."
+        "Use jars for storing spices or grains.",
+        "Store stationery or craft items inside jars.",
+        "Use clear bottles as minimalist décor.",
+        "Turn jars into mini sewing kits.",
+        "Use jars to store leftover sauces or dry snacks.",
+        "Use jars as coin banks.",
+        "Turn jars into transparent display containers.",
+        "Use bottles as water containers during meals.",
+        "Use jars to store bathroom essentials.",
+        "Use jars for candle making."
       ],
       recycle: [
-        "Rinse and recycle with other clear glass.",
-        "Sort by color if needed.",
-        "Recycle at bottle banks or curbside."
+        "Turn jars into candle lanterns filled with pebbles.",
+        "Paint jars for decorative lamps.",
+        "Create mini terrariums using soil and small plants.",
+        "Turn jars into indoor plant pots.",
+        "Use jars as sand-art containers.",
+        "Make hanging lights using jar lids.",
+        "Turn smooth glass into mosaic art.",
+        "Cut bottles to make drinking glasses.",
+        "Use jars as fermentation containers for pickles.",
+        "Convert jars into bird seed containers."
       ],
       donate: [
         "Donate clear glass to thrift shops.",
@@ -229,14 +341,28 @@ export default function ImageUploader({ userId, userEmail }) {
     },
     Battery: {
       reuse: [
-        "Recharge batteries if possible.",
-        "Use old batteries for low-power devices.",
-        "Store used batteries safely for recycling."
+        "Use partially drained batteries in clocks.",
+        "Use weak batteries in remote controls.",
+        "Use drained batteries for LED toys.",
+        "Group similar low-power batteries for better output.",
+        "Use weak batteries in fairy lights.",
+        "Test remaining battery life using simple testers.",
+        "Use batteries for school science projects.",
+        "Use weak batteries for small emergency torches.",
+        "Label batteries to reuse them efficiently.",
+        "Rotate batteries between devices to maximize life."
       ],
       recycle: [
-        "Take batteries to certified drop-off points.",
-        "Never throw batteries in regular trash.",
-        "Check for battery recycling events locally."
+        "Tape terminals to prevent sparks during storage.",
+        "Store used batteries in a non-metal box.",
+        "Mark batteries as 'used' for sorting.",
+        "Place batteries in separate sealed bags.",
+        "Keep batteries in cool, dry spaces to prevent leaks.",
+        "Use old AA casings in craft models (non-electrical).",
+        "Use battery shapes as molds for clay or crafts.",
+        "Use dead batteries as weight fillers for small items.",
+        "Use cylindrical batteries as rolling guides for crafts.",
+        "Make dummy battery connectors for school exhibits (NO electrical use)."
       ],
       donate: [
         "Donate only new, unused batteries.",
@@ -246,14 +372,28 @@ export default function ImageUploader({ userId, userEmail }) {
     },
     Metal: {
       reuse: [
-        "Repurpose metal containers for storage.",
-        "Use metal scraps for DIY repairs.",
-        "Create garden markers from metal pieces."
+        "Use tins as pen holders.",
+        "Use cans as mini plant pots.",
+        "Use metal containers as kitchen organizers.",
+        "Convert tins into cutlery holders.",
+        "Use cans to store screws or nails.",
+        "Use cans as paintbrush wash jars.",
+        "Use metal cups as candle holders.",
+        "Decorate tins for craft storage.",
+        "Use tins as food bowls for pets.",
+        "Turn cans into hanging storage using hooks."
       ],
       recycle: [
-        "Take clean metal to scrap yards.",
-        "Recycle aluminum cans curbside.",
-        "Remove non-metal parts before recycling."
+        "Punch holes into cans to make lanterns.",
+        "Convert cans into wall-mounted tool holders.",
+        "Flatten metal to make DIY craft tags.",
+        "Use cans as molds for candles.",
+        "Cut and shape metal to make labels or signs.",
+        "Use cans as planters with drainage holes.",
+        "Create musical shakers with beads inside.",
+        "Turn tins into bird feeders.",
+        "Make mini stoves using metal cans.",
+        "Use metal pieces for mosaic art."
       ],
       donate: [
         "Donate usable metal tools or cookware.",
@@ -263,14 +403,28 @@ export default function ImageUploader({ userId, userEmail }) {
     },
     Biological: {
       reuse: [
-        "Compost suitable organic waste.",
-        "Use food scraps for animal feed if safe.",
-        "Create natural fertilizers from composted waste."
+        "Regrow vegetables like spring onions or herbs.",
+        "Use citrus peels as natural room fresheners.",
+        "Boil vegetable scraps to make broth.",
+        "Use coffee grounds as odor absorbers.",
+        "Blend fruit peels into plant sprays.",
+        "Use overripe fruits for smoothies or jams.",
+        "Dry bread to make breadcrumbs.",
+        "Use tea leaves as deodorizer for shoe cabinets.",
+        "Use eggshell halves as seed starters.",
+        "Use banana peels to polish plant leaves."
       ],
       recycle: [
-        "Compost at home or use municipal programs.",
-        "Separate meat and dairy if required.",
-        "Use compost bins for garden waste."
+        "Compost food scraps for nutrient-rich soil.",
+        "Make bio-enzyme cleaners using citrus peels.",
+        "Dry and crush eggshells as fertilizer.",
+        "Use vegetable peels as compost boosters.",
+        "Create worm compost with kitchen waste.",
+        "Turn fruit pulp into natural dyes.",
+        "Dry orange peels for mosquito-repellent powder.",
+        "Blend spoiled fruits into plant nutrient slurry.",
+        "Turn coconut shells into plant pots.",
+        "Use dried leaves and scraps as mulch."
       ],
       donate: [
         "Do not donate biological waste.",
@@ -280,14 +434,28 @@ export default function ImageUploader({ userId, userEmail }) {
     },
     Trash: {
       reuse: [
-        "Repurpose parts before disposal.",
-        "Use trash for art or upcycling projects.",
-        "Check if any components can be reused."
+        "Use clean wrappers as drawer liners.",
+        "Use packaging foam as cushion filler.",
+        "Use sturdy wrappers as protective table covers.",
+        "Use soft plastic bags as stuffing for pillows.",
+        "Turn large wrappers into waterproof book covers.",
+        "Use clear wrappers as small greenhouse covers for seedlings.",
+        "Reuse bubble wrap for storage protection.",
+        "Use clean foil wrappers for kids' craft projects.",
+        "Turn cardboard-backed wrappers into bookmarks.",
+        "Use packaging ribbons for gift wrapping."
       ],
       recycle: [
-        "Separate recyclable components before discarding.",
-        "Check local rules for hazardous waste.",
-        "Dispose of trash responsibly."
+        "Make eco-bricks by stuffing wrappers tightly into bottles.",
+        "Use eco-bricks to build stools or small furniture.",
+        "Use eco-bricks to make garden borders.",
+        "Shred soft plastics to fill cushions or toys.",
+        "Fuse plastic sheets with low heat to make reusable pouches (carefully).",
+        "Use wrappers to create waterproof mats.",
+        "Make art mosaics using colored plastic pieces.",
+        "Turn plastic packaging into DIY rope by twisting strips.",
+        "Use wrappers as insulators for plant pots.",
+        "Use laminated plastic sheets to make outdoor banners."
       ],
       donate: [
         "Items classified as trash are not suitable for donation.",
@@ -299,17 +467,89 @@ export default function ImageUploader({ userId, userEmail }) {
       reuse: [
         "If the item is in good shape, consider giving it a second life at home or with a friend.",
         "Get creative with upcycling ideas for this item.",
-        "Check online for reuse inspiration."
+        "Check online for reuse inspiration.",
+        "Before buying new, ask if this item can be repaired or refreshed.",
+        "Combine several small items into one useful kit (for example, a sewing or art kit).",
+        "Use sturdy containers to organize drawers, shelves, or your workspace.",
+        "Label boxes and jars so you can keep reusing them instead of buying new storage.",
+        "Turn colourful items into decorative pieces for your room or study area.",
+        "Offer items to neighbours or friends through your building or college group.",
+        "Host a mini swap event with classmates to exchange things you no longer need.",
+        "Use old fabric, paper and containers for school projects instead of new materials.",
+        "Turn old packaging into organizers for stationery, cables, or accessories.",
+        "If you have multiple similar items, keep the best ones and reuse the rest occasionally.",
+        "Keep a small 'reuse' box at home where family members can place items before throwing away.",
+        "Combine two half-broken items (for example, toys or tools) to make one fully working piece.",
+        "Use containers and boxes to pack gifts instead of buying gift bags.",
+        "Create simple storage for chargers and headphones using old pouches or cases.",
+        "Use leftover materials from one project as the starting point for your next DIY idea.",
+        "Keep a note of what you successfully reused so you remember similar ideas next time.",
+        "Think of reuse as keeping the item the same but moving it to a new place or purpose—no factory or melting needed.",
+        "Whenever you are about to throw something, pause and ask: can this be used again by me or someone else as it is?",
+        "Practice reuse by rotating items in your home—for example, an old mug can become a pen stand or plant pot.",
+        "If you upgrade to a new version of something, try reusing the old one in a guest room, hostel or workspace.",
+        "Use sturdy shopping bags again and again instead of collecting new disposable ones.",
+        "Reuse packaging by keeping a small stock of envelopes, bubble wrap and boxes for future parcels.",
+        "When you borrow or lend items in your community, you are also reusing shared resources instead of buying new.",
+        "Teach younger siblings or friends how to reuse school supplies across multiple semesters.",
+        "Create a small repair corner at home where you can fix reusable items with glue, thread or basic tools."
       ],
       recycle: [
         "Check your local recycling guide for this item.",
         "Ask your municipality about recycling options.",
-        "See if any parts can be recycled."
+        "See if any parts can be recycled.",
+        "Separate paper, plastic, metal and glass into different bags or bins.",
+        "Rinse food containers so they do not contaminate other recyclables.",
+        "Flatten boxes and crush bottles to save space in the recycling bin.",
+        "Remove tape, labels or mixed materials when possible before recycling.",
+        "Look for recycling symbols and numbers on plastic to know what is accepted locally.",
+        "Collect e‑waste (old chargers, cables, gadgets) separately and take it to a special drive.",
+        "Keep a small recycling corner at home so everyone knows where to place items.",
+        "Avoid mixing hazardous items like batteries or chemicals with normal recyclables.",
+        "Join or start a college or community recycling drive once a semester.",
+        "Share photos or reminders with friends about local recycling drop‑off points.",
+        "Bundle paper with string instead of tape or plastic when giving it for recycling.",
+        "Reuse or recycle packaging you receive from online orders instead of binning it.",
+        "Keep reusable bags handy so you generate fewer low‑quality plastic bags.",
+        "Choose products with minimal or recyclable packaging when you shop.",
+        "If you are unsure about an item, check your city website instead of guessing.",
+        "Teach one friend or family member how to sort waste correctly this week.",
+        "Remember that recycling changes the material itself—like melting metal or pulping paper—to make something new.",
+        "If an item is too damaged for reuse, recycling its material is often the next best step.",
+        "When you recycle properly, you reduce the need to extract fresh raw materials from the earth.",
+        "Check if your area has separate collections for dry recyclables and wet organic waste, and follow them.",
+        "Label home recycling containers clearly so everyone puts the right material in the right bin.",
+        "Look up special collection days for glass, e‑waste and bulky recyclables in your city calendar.",
+        "Encourage your college, office or housing society to set up clearly marked recycling stations.",
+        "Track how many bags or boxes of recyclables you divert from landfill each month as a small personal goal."
       ],
       donate: [
         "Donate through EcoShare or a local charity.",
         "List the item online for free pickup.",
-        "Offer to friends or family."
+        "Offer to friends or family.",
+        "Clean the item properly so the next person feels happy to receive it.",
+        "Add clear photos from different angles so people know what they are getting.",
+        "Describe any scratches, stains or missing parts honestly in your listing.",
+        "Group small related items into a single donation bundle (for example, stationery set).",
+        "Check with shelters, hostels or community centres about what items they currently need.",
+        "Avoid donating broken or unsafe items—repair first or recycle instead.",
+        "If clothing is too worn to donate, consider textile recycling rather than listing it.",
+        "Pack the item securely so it reaches the receiver in one piece.",
+        "Be responsive in chat and fix a clear pickup time to avoid last‑minute cancellations.",
+        "Mark the listing as completed once the item has been given away.",
+        "Share your positive donation stories to inspire friends to try it.",
+        "If demand is high, consider splitting items across multiple receivers fairly.",
+        "Use EcoShare to donate seasonal items (books, decor, uniforms) before they go out of use.",
+        "Respect people’s privacy and comfort during pickup; choose safe, public locations.",
+        "Ask the receiver for quick feedback so you can improve future donations.",
+        "Remember that every donated item keeps one more thing out of the landfill.",
+        "Think of donating as a special form of reuse—your item continues its life with a new owner instead of being thrown away.",
+        "Write your description so that a stranger can understand how to use and care for the item safely.",
+        "Include information like size, material and age so receivers can decide if the item suits their needs.",
+        "If an item has emotional or cultural value, mention it kindly so the next owner can respect its story.",
+        "Use donation as a chance to declutter gently—start with items you haven’t used in six months or more.",
+        "Bundle items for students or NGOs, such as study kits, kitchen starter sets or basic clothing packs.",
+        "After a successful donation, note what worked well (timing, packaging, communication) and repeat that pattern next time."
       ]
     }
   };
@@ -318,6 +558,7 @@ export default function ImageUploader({ userId, userEmail }) {
   const [tipIndexes, setTipIndexes] = useState({});
 
   // When prediction changes, cycle the tip index for that label
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (prediction && prediction.label) {
       setTipIndexes(prev => {
@@ -325,9 +566,10 @@ export default function ImageUploader({ userId, userEmail }) {
         const label = prediction.label;
         // For each type, increment index mod tip count
         ["reuse", "recycle", "donate"].forEach(type => {
-          const arr = (TIPS[label] && TIPS[label][type]) || TIPS.default[type];
+          const specific = (TIPS[label] && TIPS[label][type]) || [];
+          const combined = specific.length ? [...specific, ...TIPS.default[type]] : TIPS.default[type];
           const prevIdx = prev[label + type] || 0;
-          next[label + type] = (prevIdx + 1) % arr.length;
+          next[label + type] = (prevIdx + 1) % combined.length;
         });
         return next;
       });
@@ -336,9 +578,11 @@ export default function ImageUploader({ userId, userEmail }) {
 
   // Helper to get the cycling tip
   const getCyclingTip = (label, type) => {
-    const arr = (TIPS[label] && TIPS[label][type]) || TIPS.default[type];
-    const idx = tipIndexes[label + type] || 0;
-    return arr[idx];
+    const specific = (TIPS[label] && TIPS[label][type]) || [];
+    const combined = specific.length ? [...specific, ...TIPS.default[type]] : TIPS.default[type];
+    const key = label + type;
+    const idx = tipIndexes[key] || 0;
+    return combined[idx % combined.length];
   };
 
 
@@ -347,7 +591,7 @@ export default function ImageUploader({ userId, userEmail }) {
     setIsPosting(true);
     try {
       const ai = prediction ? { label: prediction.label, confidence: prediction.confidence } : null;
-      const res = await uploadImageAndCreatePost(file, formData, userId, userEmail, ai);
+      await uploadImageAndCreatePost(file, formData, userId, userEmail, ai);
       window.alert("Item successfully listed");
       setFile(null);
       setPreviewUrl(null);
@@ -365,7 +609,12 @@ export default function ImageUploader({ userId, userEmail }) {
   return (
     <div>
       <div className="form-row">
-        <label className="small-muted">Upload a photo of the item</label>
+        <label className="small-muted">Upload clear photos of the item you want to donate</label>
+        <p className="small-muted" style={{ marginTop: 4 }}>
+          Choose a bright, well‑lit photo that shows the whole item. Avoid blurry images and try to include
+          any important details like brand labels, scratches or wear so receivers can clearly understand
+          the condition before they request it.
+        </p>
         <input type="file" accept="image/*" onChange={onFileChange} />
         {previewUrl && <img ref={imgRef} src={previewUrl} alt="preview" className="preview" />}
         <div className="buttons">

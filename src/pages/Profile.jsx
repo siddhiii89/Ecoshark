@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
-import { FiUser, FiMail, FiGift, FiCalendar, FiActivity, FiTrendingUp, FiClock } from "react-icons/fi";
+import { FiUser, FiMail, FiCalendar, FiActivity, FiTrendingUp, FiClock } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { supabase } from "../supabaseClient";
 import { fetchMyNgoRequest } from "../services/ngoService";

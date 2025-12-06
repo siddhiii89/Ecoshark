@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "../supabaseClient";
-import { FiSearch, FiFilter, FiMapPin, FiClock, FiTag, FiPlusCircle } from "react-icons/fi";
+import { FiSearch, FiFilter, FiMapPin, FiClock, FiPlusCircle } from "react-icons/fi";
 
 // Categories for filtering
 const categories = [

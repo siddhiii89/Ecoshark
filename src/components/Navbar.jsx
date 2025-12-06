@@ -1,14 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { FiMenu, FiX, FiPlusCircle, FiGrid, FiHome, FiUser, FiLogOut, FiLogIn, FiUserPlus } from 'react-icons/fi';
+import { FiMenu, FiX, FiPlusCircle, FiGrid, FiHome, FiUser, FiLogOut, FiLogIn, FiUserPlus, FiBell } from 'react-icons/fi';
+import { fetchNotificationsForUser } from '../services/notificationService';
 
 export default function Navbar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const [showNotifications, setShowNotifications] = useState(false);
 
   const toggleMenu = () => setIsOpen(!isOpen);
+
+  useEffect(() => {
+    const loadNotifications = async () => {
+      if (!user) {
+        setNotifications([]);
+        return;
+      }
+      const data = await fetchNotificationsForUser(user.id);
+      setNotifications(data);
+    };
+
+    loadNotifications();
+  }, [user]);
 
   async function handleLogout() {
     try {
@@ -66,9 +82,67 @@ export default function Navbar() {
           {/* User/Auth Buttons - Desktop */}
           <div className="hidden md:ml-4 md:flex md:items-center space-x-3">
             {user && (
-              <div className="text-sm text-gray-700 mr-4 hidden lg:block">
-                Welcome, <span className="font-medium">{user.email.split('@')[0]}</span>
-              </div>
+              <>
+                <button
+                  type="button"
+                  className="relative mr-2 text-gray-600 hover:text-emerald-700"
+                  onClick={() => setShowNotifications((prev) => !prev)}
+                >
+                  <FiBell className="w-5 h-5" />
+                  {notifications.length > 0 && (
+                    <span className="absolute -top-1 -right-1 inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-semibold leading-none text-white bg-red-500 rounded-full">
+                      {notifications.length}
+                    </span>
+                  )}
+                </button>
+                {showNotifications && (
+                  <div className="absolute right-4 top-16 w-72 bg-white border border-emerald-100 rounded-xl shadow-lg z-20">
+                    <div className="px-4 py-2 border-b border-emerald-100 text-sm font-semibold text-emerald-900">
+                      Notifications
+                    </div>
+                    <div className="max-h-64 overflow-y-auto">
+                      {notifications.length === 0 ? (
+                        <div className="px-4 py-3 text-xs text-gray-500">No notifications yet.</div>
+                      ) : (
+                        notifications.map((n) => (
+                          <button
+                            key={n.id}
+                            onClick={() => {
+                              setShowNotifications(false);
+                              if (n.link) {
+                                let target = n.link;
+                                let emailParam = "";
+                                if (n.description) {
+                                  const firstWord = n.description.split(" ")[0];
+                                  if (firstWord.includes("@")) {
+                                    emailParam = `from=${encodeURIComponent(firstWord)}`;
+                                  }
+                                }
+                                const chatParam = "openChat=1";
+                                const query = emailParam
+                                  ? `${chatParam}&${emailParam}`
+                                  : chatParam;
+                                target += target.includes("?") ? `&${query}` : `?${query}`;
+                                navigate(target);
+                              }
+                            }}
+                            className="w-full text-left px-4 py-3 text-xs border-b border-emerald-50 hover:bg-emerald-50"
+                          >
+                            <div className="font-semibold text-gray-800 mb-0.5">{n.title}</div>
+                            <div className="text-gray-600 mb-1">{n.description}</div>
+                            <div className="text-[10px] text-gray-400">
+                              {new Date(n.created_at).toLocaleString()}
+                            </div>
+                          </button>
+                        ))
+                      )}
+                    </div>
+                  </div>
+                )}
+                <div className="text-sm text-gray-700 mr-4 hidden lg:block">
+                  Welcome, <span className="font-medium">{user.email.split('@')[0]}</span>
+                </div>
+              </>
             )}
             {authLinks.map((link, index) => (
               link.to ? (

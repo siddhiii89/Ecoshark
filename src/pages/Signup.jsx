@@ -22,7 +22,7 @@ export default function Signup() {
 
       if (role === "ngo") {
         if (!ngoFile) {
-          setError("Please upload your NGO documentation as a PDF file.");
+          setError("NGO documentation is required and must be a PDF file.");
           setLoading(false);
           return;
         }
@@ -91,7 +91,7 @@ export default function Signup() {
           </div>
           {role === "ngo" && (
             <div className="mt-3 text-sm">
-              <label className="block text-sm text-gray-700 mb-1">NGO documentation (optional)</label>
+              <label className="block text-sm text-gray-700 mb-1">NGO documentation (PDF, required)</label>
               <input
                 type="file"
                 accept="application/pdf,.pdf"

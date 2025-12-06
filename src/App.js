@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ResetPassword from './pages/ResetPassword';
 import Admin from './pages/Admin';
+import Chat from './pages/Chat';
 import ProtectedRoute from './routes/ProtectedRoute';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
@@ -27,6 +28,7 @@ export default function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/share" element={<ProtectedRoute><Share /></ProtectedRoute>} />
+          <Route path="/chat/:conversationId" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
           <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
