@@ -87,6 +87,90 @@ export default function ImageUploader({ userId, userEmail }) {
     }
   };
 
+  const getDescriptionSuggestions = () => {
+    if (!prediction) {
+      return [
+        "Auto suggestion: Item. Condition: Not specified. Please describe what the item is, how it has been used, and mention any marks or issues so the next owner knows exactly what to expect.",
+        "Auto suggestion: Item. A pre-loved piece that you no longer need but someone else could still use. Add details about size, material, brand and why you are giving it away.",
+        "Auto suggestion: Item. Please write a short product-style description in your own words, including how old it is, overall condition, and anything the receiver should be careful about."
+      ];
+    }
+
+    const label = prediction.label || "Item";
+    const condition = prediction.reusable ? "Good" : "Fair";
+
+    switch (label) {
+      case "Shoes":
+        return [
+          `Auto suggestion: Shoes. Condition: ${condition}. A gently used pair of shoes that is still comfortable to wear, with normal signs of use but no major damage. Please mention the size, brand (if any), sole condition and any small marks or scuffs so the next owner knows exactly what to expect.`,
+          `Auto suggestion: Casual/regular-use shoes in ${condition} condition. Ideal for daily wear, walking or college use. Describe whether they are sports shoes, sandals or formal shoes, how they fit you, and if there are any areas with extra wear such as the heel or inner lining.`,
+          `Auto suggestion: Pre-loved footwear looking for a new home. Note the exact size, style (for example, sneakers, flats, sandals), how many months/years you have used them, and if they come with original laces/insoles so buyers can quickly decide if it suits them.`
+        ];
+      case "Clothes":
+        return [
+          `Auto suggestion: Clothes. Condition: ${condition}. A pre-loved clothing item that is still in wearable condition, with light signs of use. Please describe the type of garment (for example, t-shirt, kurta, jeans), size, fabric, fit and any stains, fading or loose threads so it feels like a clear product listing.`,
+          `Auto suggestion: Everyday wear clothing item in ${condition} condition. Mention if it is more suitable for casual, office, festival or home use, and add details about colour, pattern and whether it has any noticeable wear around the neck, cuffs or hem.`,
+          `Auto suggestion: Gently used apparel. Share the approximate age of the garment, washing/care preferences (machine wash/hand wash), and if there are any alterations or custom stitching so the next owner can decide comfortably.`
+        ];
+      case "Plastic":
+        return [
+          `Auto suggestion: Plastic item. Condition: ${condition}. A reusable plastic item that is still sturdy and functional. Please describe what it is used for (bottle, box, container, organizer), its size or capacity, and mention any scratches, discoloration or cracks so the receiver can judge if it suits their needs.`,
+          `Auto suggestion: Multi-use plastic storage or utility item. Note whether it is food-safe, has a tight lid or locking system, and if there are any stains or smells from previous use so people know how they can safely reuse it.`,
+          `Auto suggestion: Durable plastic piece for everyday organisation. Explain how you used it (for example, storing snacks, stationery, tools), if it stacks with other containers, and whether there are any chips or rough edges.`
+        ];
+      case "Paper":
+        return [
+          `Auto suggestion: Paper item. Condition: ${condition}. Usable paper or notebooks that can still be written or printed on. Please mention whether the pages are blank or partly used, approximate number of sheets, and any folds, markings or damage so the next owner can plan how to use it.`,
+          `Auto suggestion: Notebooks or sheets suitable for study, notes or craft. Mention the page size (A4, A5 etc.), type of ruling (plain, ruled, grid) and whether there are any previous notes, highlights or doodles on the pages.`,
+          `Auto suggestion: Reusable paper bundle. Describe if it is more suitable for school projects, office printouts or art work, and mention if the edges are clean, punched or slightly worn.`
+        ];
+      case "Cardboard":
+        return [
+          `Auto suggestion: Cardboard. Condition: ${condition}. Sturdy cardboard boxes or sheets that are still strong enough for storage or craft. Please describe the size, thickness, whether they are clean or have tape/labels, and if there are any tears or damp spots.`,
+          `Auto suggestion: Reusable cartons or packaging boards. Mention if they are foldable or already assembled, how many boxes/sheets you are giving, and whether they were previously used for electronics, groceries or deliveries.`,
+          `Auto suggestion: Craft or storage-friendly cardboard. Let people know if the surfaces are plain or printed, if there are any dents or crushed corners, and suggest how it could be reused (moving, DIY projects, kids’ models).`
+        ];
+      case "Brown-glass":
+      case "Green-glass":
+      case "White-glass":
+        return [
+          `Auto suggestion: Glass container. Condition: ${condition}. A reusable glass bottle or jar that can be used for storage or decor. Please mention the approximate volume, colour (brown/green/clear), whether it has a lid, and note any chips, scratches or labels still attached.`,
+          `Auto suggestion: Decorative/utility glass bottle or jar. Explain if it was earlier used for food, drinks or decor, and mention if it is heavy or lightweight glass so people know how safely it can be handled or upcycled.`,
+          `Auto suggestion: Upcyclable glass piece. Suggest how it could be reused (as a vase, storage jar, lamp, terrarium) and clearly mention if there are any sharp edges, cracks or missing caps.`
+        ];
+      case "Battery":
+        return [
+          `Auto suggestion: Batteries/device with batteries. Condition: ${condition}. Please clearly state if the batteries are new, partially used or near the end of life. If you are donating a device with batteries installed, describe if it is working properly and if there are any cracks, loose covers or missing parts.`,
+          `Auto suggestion: Battery-powered item. Mention the battery type (AA, AAA, button cell etc.), whether you are including spare cells, and if the receiver should replace them soon for best performance.`,
+          `Auto suggestion: Electrical/electronic item using batteries. Add a note about when it was last used, if there are any known issues like flickering, loose contact or corrosion, and whether basic cleaning is required before reuse.`
+        ];
+      case "Metal":
+        return [
+          `Auto suggestion: Metal item. Condition: ${condition}. A metal container, tool or household item that is still strong and usable. Please describe what it is (for example, tin, utensil, rack), its size, and mention any rust, dents or sharp edges so the receiver can handle it safely.`,
+          `Auto suggestion: Reusable metal piece for kitchen, storage or DIY. Let people know if it is stainless steel, aluminium or another metal, and whether it is better suited for food use, tools or craft projects.`,
+          `Auto suggestion: Sturdy metal item with some signs of age. Highlight if it has any decorative value, how you used it earlier, and if a quick cleaning or polishing would make it look better.`
+        ];
+      case "Biological":
+        return [
+          `Auto suggestion: Organic/biological material. Condition: ${condition}. This category is usually better suited for composting, not direct donation. If you are sharing safe, non-perishable food or plants, describe clearly what it is, the quantity, and any storage or expiry details so it remains safe to use.`,
+          `Auto suggestion: Natural/organic item. If it is a plant, mention the type, pot size and any care tips. If it is food, clearly state whether it is sealed, homemade or packaged, and how soon it should be consumed.`,
+          `Auto suggestion: Compost-friendly material. If your intention is to give this for composting or gardening, mention that clearly and describe whether it is kitchen scraps, dry leaves or other organic matter so it is used correctly.`
+        ];
+      case "Trash":
+        return [
+          `Auto suggestion: Trash/low-value mixed waste. This type of item is generally not suitable for donation. If you are offering it for upcycling projects, describe what kind of packaging or material it is, how clean it is, and how someone might safely reuse it for crafts or eco-bricks.`,
+          `Auto suggestion: Mixed low-value material mainly suitable for recycling or craft. Be honest about cleanliness and condition, and suggest creative uses like eco-bricks, collage art or school projects if appropriate.`,
+          `Auto suggestion: Non-usable item for experimental reuse. Clearly mention that this is not fit for direct use but may help someone who is specifically looking for waste material for DIY or research.`
+        ];
+      default:
+        return [
+          `Auto suggestion: ${label}. Condition: ${condition}. A gently used item that is still practical and usable, with normal signs of wear but no major damage. Please describe what it is, how it is typically used, and mention size, brand or material plus any marks or defects so the next owner has a clear picture before requesting it.`,
+          `Auto suggestion: ${label}. A pre-owned item you no longer need. Share how long you have used it, what you liked about it, and why you think it could still be helpful to someone else.`,
+          `Auto suggestion: ${label}. Please give a short, product-style description including age, usage history and any small issues so that the receiver can decide confidently.`
+        ];
+    }
+  };
+
   const onDonateClick = () => setShowDonateForm(true);
 
   // Per-label cycling tips
@@ -656,7 +740,8 @@ export default function ImageUploader({ userId, userEmail }) {
       {showDonateForm && (
         <DonateForm
           defaultTitle={`Donating: ${prediction ? prediction.label : "Item"}`}
-          defaultDescription={`Auto suggestion: ${prediction ? prediction.label : ""}. Condition: ${prediction ? (prediction.reusable ? "Good" : "Fair") : "Not specified"}.`}
+          defaultDescription={getDescriptionSuggestions()[0]}
+          descriptionSuggestions={getDescriptionSuggestions()}
           defaultCategory={prediction ? prediction.category : ""}
           onCancel={() => setShowDonateForm(false)}
           onSubmit={handleCreatePost}

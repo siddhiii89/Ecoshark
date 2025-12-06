@@ -1,7 +1,7 @@
 // src/components/DonateForm.jsx
 import React, { useState } from "react";
 
-export default function DonateForm({ defaultTitle, defaultDescription, defaultCategory, onCancel, onSubmit, disabled }) {
+export default function DonateForm({ defaultTitle, defaultDescription, defaultCategory, descriptionSuggestions, onCancel, onSubmit, disabled }) {
   const [title, setTitle] = useState(defaultTitle || "");
   const [description, setDescription] = useState(defaultDescription || "");
   const [category, setCategory] = useState(defaultCategory || "");
@@ -47,6 +47,26 @@ export default function DonateForm({ defaultTitle, defaultDescription, defaultCa
       </div>
       <div className="form-row">
         <label>Description</label>
+        {descriptionSuggestions && descriptionSuggestions.length > 0 && (
+          <div className="small-muted" style={{ marginBottom: 4 }}>
+            You can start from one of these auto-generated descriptions and then edit it in your own words:
+          </div>
+        )}
+        {descriptionSuggestions && descriptionSuggestions.length > 0 && (
+          <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 6 }}>
+            {descriptionSuggestions.map((s, idx) => (
+              <button
+                key={idx}
+                type="button"
+                className="secondary-btn"
+                style={{ textAlign: "left", whiteSpace: "normal" }}
+                onClick={() => setDescription(s)}
+              >
+                Use suggestion {idx + 1}
+              </button>
+            ))}
+          </div>
+        )}
         <textarea rows={4} value={description} onChange={(e) => setDescription(e.target.value)} />
       </div>
       <div className="form-row">
