@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { FiUser, FiMail, FiCalendar, FiActivity, FiTrendingUp, FiClock } from "react-icons/fi";
 import { Link } from "react-router-dom";
@@ -14,17 +14,31 @@ export default function Profile() {
 
   const displayName = user?.email?.split("@")?.[0] || "EcoSharer";
 
-  // Impact stats (can be improved with real data)
-  const impactStats = [
-    { label: "Items You Shared", value: "-", hint: "Based on your donations" },
-    { label: "Estimated Waste Diverted", value: "-", hint: "Approximate based on item types" },
-    { label: "Community Items Shared", value: "1,024+", hint: "Across EcoShare" },
-  ];
-
   // Listings state
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [ngoRequest, setNgoRequest] = useState(null);
+
+  const impactStats = useMemo(() => {
+    const count = items.length;
+    return [
+      {
+        label: "Items You Shared",
+        value: loading ? "-" : count.toString(),
+        hint: "Based on your donations",
+      },
+      {
+        label: "Estimated CO2 Savings",
+        value: loading || count === 0 ? "-" : `${count * 3} kg CO2e`,
+        hint: "Very rough estimate of carbon footprint avoided",
+      },
+      {
+        label: "Community Items Shared",
+        value: "1,024+",
+        hint: "Across EcoShare",
+      },
+    ];
+  }, [items, loading]);
 
   useEffect(() => {
     if (!user) return;
@@ -44,9 +58,6 @@ export default function Profile() {
       const arr = data || [];
       setItems(arr);
       setLoading(false);
-      // Set impact stat for items shared
-      impactStats[0].value = arr.length.toString();
-      impactStats[1].value = arr.length > 0 ? `${arr.length * 4} kg` : "-"; // Example: 4kg per item
     };
     fetchData();
     // eslint-disable-next-line
@@ -73,8 +84,6 @@ export default function Profile() {
     }
 
     setItems((prev) => prev.filter((x) => x.id !== id));
-    impactStats[0].value = (items.length - 1).toString();
-    impactStats[1].value = items.length - 1 > 0 ? `${(items.length - 1) * 4} kg` : "-";
   };
 
   return (
