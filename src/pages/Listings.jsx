@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
-import { db } from "../firebase";
+import { supabase } from "../supabaseClient";
 import { FiSearch, FiFilter, FiMapPin, FiClock, FiTag, FiPlusCircle } from "react-icons/fi";
 
 // Categories for filtering
@@ -16,10 +15,19 @@ const categories = [
   'Other'
 ];
 
-// Helper function to format date
+// Helper to safely convert createdAt from either Firestore Timestamp or ISO/date string
+const toJsDate = (timestamp) => {
+  if (!timestamp) return null;
+  if (typeof timestamp === 'string' || timestamp instanceof Date) return new Date(timestamp);
+  // Firestore Timestamp case
+  if (timestamp?.toDate) return timestamp.toDate();
+  return null;
+};
+
+// Helper function to format date (supports Firestore Timestamp and ISO string)
 const formatDate = (timestamp) => {
-  if (!timestamp?.toDate) return 'Recently';
-  const date = timestamp.toDate();
+  const date = toJsDate(timestamp);
+  if (!date || isNaN(date)) return 'Recently';
   const now = new Date();
   const diffInDays = Math.floor((now - date) / (1000 * 60 * 60 * 24));
   
@@ -36,15 +44,17 @@ export default function Listings() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [sortBy, setSortBy] = useState('newest');
 
-  // Fetch items from Firestore
+  // Fetch items from Supabase
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const q = query(collection(db, "donations"), orderBy("createdAt", "desc"));
-        const snap = await getDocs(q);
-        const arr = [];
-        snap.forEach((doc) => arr.push({ id: doc.id, ...doc.data() }));
-        setItems(arr);
+        const { data, error } = await supabase
+          .from("donations")
+          .select("*")
+          .order("createdAt", { ascending: false });
+
+        if (error) throw error;
+        setItems(data || []);
       } catch (error) {
         console.error("Error fetching listings: ", error);
       } finally {
@@ -62,10 +72,17 @@ export default function Listings() {
       const matchesCategory = selectedCategory === 'All' || item.category === selectedCategory;
       return matchesSearch && matchesCategory;
     }).sort((a, b) => {
+      const dateA = toJsDate(a.createdAt);
+      const dateB = toJsDate(b.createdAt);
+
+      if (!dateA && !dateB) return 0;
+      if (!dateA) return 1;
+      if (!dateB) return -1;
+
       if (sortBy === 'newest') {
-        return b.createdAt?.toDate() - a.createdAt?.toDate();
+        return dateB - dateA;
       } else if (sortBy === 'oldest') {
-        return a.createdAt?.toDate() - b.createdAt?.toDate();
+        return dateA - dateB;
       }
       return 0;
     });

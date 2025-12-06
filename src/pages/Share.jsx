@@ -34,7 +34,7 @@ export default function Share() {
                 </div>
               </div>
 
-              <ImageUploader userId={user?.uid || null} userEmail={user?.email || null} />
+              <ImageUploader userId={user?.id || null} userEmail={user?.email || null} />
             </>
           ) : (
             <div className="text-center py-10">

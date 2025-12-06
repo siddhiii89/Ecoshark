@@ -1,11 +1,9 @@
-// src/services/firebaseService.js
-import { ref as storageRef, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+// src/services/firebaseService.js (now powered by Supabase)
 import { v4 as uuidv4 } from "uuid";
-import { storage, db } from "../firebase";
+import { supabase } from "../supabaseClient";
 
 /**
- * Uploads image file to Firebase Storage and creates a Firestore document in 'donations' collection.
+ * Uploads image file to Supabase Storage and creates a row in 'donations' table.
  * file: File from input
  * data: { title, description, category, condition, age, location: { city, zip } }
  * userId: optional
@@ -14,16 +12,28 @@ import { storage, db } from "../firebase";
  */
 export async function uploadImageAndCreatePost(file, data, userId = null, userEmail = null, ai = null) {
   if (!file) throw new Error("No file provided");
+
   const id = uuidv4();
   const path = `donation_images/${userId || "anon"}/${id}.jpg`;
-  const sRef = storageRef(storage, path);
-  await new Promise((resolve, reject) => {
-    const task = uploadBytesResumable(sRef, file);
-    task.on('state_changed', undefined, reject, () => resolve());
-  });
-  const url = await getDownloadURL(sRef);
 
-  const docRef = await addDoc(collection(db, "donations"), {
+  // Upload to Supabase Storage bucket 'donation-images'
+  const { error: uploadError } = await supabase
+    .storage
+    .from("donation-images")
+    .upload(path, file, { upsert: false });
+
+  if (uploadError) {
+    throw uploadError;
+  }
+
+  const { data: urlData } = supabase
+    .storage
+    .from("donation-images")
+    .getPublicUrl(path);
+
+  const url = urlData?.publicUrl;
+
+  const payload = {
     title: data.title || "Donation",
     description: data.description || "",
     category: data.category || "",
@@ -34,12 +44,23 @@ export async function uploadImageAndCreatePost(file, data, userId = null, userEm
       zip: data.location?.zip || ""
     },
     imageUrl: url,
-    createdAt: serverTimestamp(),
+    createdAt: new Date().toISOString(),
     is_for_sale: false,
     userId: userId || null,
     userEmail: userEmail || null,
     ai: ai || null
-  });
+  };
 
-  return { docId: docRef.id, url };
+  const { data: rows, error: insertError } = await supabase
+    .from("donations")
+    .insert(payload)
+    .select();
+
+  if (insertError) {
+    throw insertError;
+  }
+
+  const row = rows?.[0];
+  return { docId: row?.id, url };
 }
+

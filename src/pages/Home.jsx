@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FiArrowRight, FiGift, FiHeart, FiShield, FiSearch } from 'react-icons/fi';
+import { useAuth } from '../contexts/AuthContext';
 
 const features = [
   {
@@ -33,6 +34,7 @@ const stats = [
 ];
 
 export default function Home() {
+  const { user } = useAuth();
   return (
     <div className="bg-white">
       {/* Hero Section */}
@@ -75,8 +77,8 @@ export default function Home() {
         <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
           <img
             className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
-            src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-            alt="People sharing items"
+            src="/image.png"
+            alt="Eco-friendly products and sustainable living"
           />
         </div>
       </div>
@@ -90,12 +92,21 @@ export default function Home() {
           </h2>
           <div className="mt-8 flex lg:mt-0 lg:flex-shrink-0">
             <div className="inline-flex rounded-md shadow">
-              <Link
-                to="/signup"
-                className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 transition-colors duration-200"
-              >
-                Get started
-              </Link>
+              {user ? (
+                <Link
+                  to="/listings"
+                  className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 transition-colors duration-200"
+                >
+                  Go to Listings
+                </Link>
+              ) : (
+                <Link
+                  to="/signup"
+                  className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 transition-colors duration-200"
+                >
+                  Get started
+                </Link>
+              )}
             </div>
           </div>
         </div>
@@ -165,12 +176,21 @@ export default function Home() {
           </h2>
           <div className="mt-8 flex lg:mt-0 lg:flex-shrink-0 space-x-4">
             <div className="inline-flex rounded-md shadow">
-              <Link
-                to="/signup"
-                className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 transition-colors duration-200"
-              >
-                Sign up for free
-              </Link>
+              {user ? (
+                <Link
+                  to="/listings"
+                  className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 transition-colors duration-200"
+                >
+                  Go to Dashboard
+                </Link>
+              ) : (
+                <Link
+                  to="/signup"
+                  className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 transition-colors duration-200"
+                >
+                  Sign up for free
+                </Link>
+              )}
             </div>
             <div className="inline-flex rounded-md shadow">
               <Link
@@ -180,6 +200,24 @@ export default function Home() {
                 Browse Listings
               </Link>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Contact Us Section */}
+      <div className="bg-emerald-50 border-t border-emerald-100">
+        <div className="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h2 className="text-2xl font-extrabold text-emerald-900 mb-2">Contact Us</h2>
+            <p className="text-emerald-800 mb-4">
+              Have questions, feedback, or ideas for EcoShare? We&apos;d love to hear from you.
+            </p>
+            <a
+              href="mailto:ecoshareplanet@gmail.com"
+              className="inline-flex items-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-emerald-600 hover:bg-emerald-700 transition-colors duration-200"
+            >
+              ecoshareplanet@gmail.com
+            </a>
           </div>
         </div>
       </div>

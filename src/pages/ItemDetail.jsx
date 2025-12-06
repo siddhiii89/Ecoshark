@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { db } from "../firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { supabase } from "../supabaseClient";
 
 export default function ItemDetail() {
   const { id } = useParams();
@@ -10,9 +9,15 @@ export default function ItemDetail() {
 
   useEffect(() => {
     (async () => {
-      const ref = doc(db, "donations", id);
-      const snap = await getDoc(ref);
-      if (snap.exists()) setItem({ id: snap.id, ...snap.data() });
+      const { data, error } = await supabase
+        .from("donations")
+        .select("*")
+        .eq("id", id)
+        .single();
+
+      if (!error && data) {
+        setItem(data);
+      }
       setLoading(false);
     })();
   }, [id]);
